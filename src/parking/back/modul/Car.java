@@ -1,8 +1,11 @@
 package parking.back.modul;
 
 import java.io.Serializable;
+import java.util.UUID;
 
-public class Car implements Serializable {
+public class Car  implements Serializable{
+    private final UUID uuid = UUID.randomUUID();
+    private String password;
     private Park parking;
     private int floor;
     private int row;
@@ -42,6 +45,18 @@ public class Car implements Serializable {
     }
     public void setType(String type){
         this.type = type;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

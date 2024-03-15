@@ -25,19 +25,12 @@ public class Entrance {
         System.out.println(Colors.BLUE + "<---- Sign Up ---->" + Colors.RESET);
         try {
             String username = getStringWithScanner("Username => ");
+            User userByUsername = userController.findUserByUsername(username);
+            if (userByUsername != null)     throw new RuntimeException(Colors.RED + "This user is exists" + Colors.RESET);
 
             String password = getStringWithScanner("Password => ");
 
-            System.out.println(Colors.BLUE + "What is your car ?\n1.🚗\n2.🏍️\n3.🚌");
-            int carType = getIntWithScanner("Choose => ");
-            String type = switch (carType) {
-                case 1 -> "🚗";
-                case 2 -> "🏍️";
-                case 3 -> "🚌";
-                default -> "__";
-            };
-            Car car = new Car(type, parking);
-            User user = new User(car, username, password);
+            User user = new User(username, password);
             userController.addUser(user);
             return user;
         }catch (Exception e){
@@ -76,6 +69,7 @@ public class Entrance {
                 return menu;
             } catch (Exception e) {
                 System.out.println(Colors.RED + "No correct enter" + Colors.RESET);
+                scannerInt.nextLine();
             }
         }
     }

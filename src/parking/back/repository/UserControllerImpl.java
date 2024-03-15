@@ -39,13 +39,9 @@ public class UserControllerImpl implements UserController {
 
     @Override
     public boolean addUser(User user) {
-        User user1 = findUserByUsername(user.getUsername());
-        if (user1 != null)  throw new RuntimeException(Colors.RED + "This user is exists" + Colors.RESET);
         List<User> users = read();
         if (users == null)  users = new ArrayList<>();
-        //ArrayList<User> users = new ArrayList<>();
         users.add(user);
-
         write(users);
         return true;
     }

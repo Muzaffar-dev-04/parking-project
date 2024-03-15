@@ -8,8 +8,25 @@ import java.util.List;
 
 public class Park {
     private Car[][][] park;
-    private int emptyCeils;
-    public Park(int floor,int row,int col) {
+    public static int emptyCeils;
+    private static Park instance;
+
+    public static Park getInstance(int floor,int row,int col) {
+        if (instance == null) {
+            instance = new Park(floor, row, col);
+        }
+        instance.park = new Car[floor][row][col];
+        for (int i = 0; i < floor; i++) {
+            for (int j = 0; j < row; j++) {
+                for (int k = 0; k < col; k++) {
+                    instance.park[i][j][k] = new Car("__",instance);
+                    emptyCeils++;
+                }
+            }
+        }
+        return instance;
+    }
+    private Park(int floor,int row,int col) {
         this.park = new Car[floor][row][col];
         for (int i = 0; i < floor; i++) {
             for (int j = 0; j < row; j++) {
@@ -69,12 +86,19 @@ public class Park {
         CarController carController = CarControllerImpl.getInstance();
         List<Car> cars = carController.getAll();
         for (Car car : cars) {
-            if (car.getFloor() == 0 || car.getRow() == 0 || car.getCol() == 0) {
+            /*if (car.getFloor() == 0 || car.getRow() == 0 || car.getCol() == 0) {
                 System.out.println(car);
                 continue;
-            }
+            }*/
             park[car.getFloor() - 1][car.getRow() - 1][car.getCol() - 1] = car;
         }
+    }
+
+    public void remove(Car car) {
+        int floor = car.getFloor();
+        int row = car.getRow();
+        int col = car.getCol();
+        park[floor - 1][row - 1][col - 1] = new Car("__",this);
     }
 }
 

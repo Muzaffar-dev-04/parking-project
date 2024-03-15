@@ -3,11 +3,12 @@ package parking.back.modul;
 import java.io.Serializable;
 
 public class User implements Serializable {
+    private static final long serialVersionUID = 6132203488621706183L;
     private Car car;
     private String username;
     private String password;
 
-    public User(Car car, String username, String password) {
+    public User(String username, String password) {
         this.car = car;
         this.username = username;
         this.password = password;
